@@ -1,6 +1,5 @@
 <?php 
     include('navbar-login.php');
-    $login = $_SESSION['login']
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,54 +29,37 @@
 </style>
 
 <body>
-<?php
-    $id_driver = $_GET['id_driver'];
-    $sql = "SELECT * FROM driver WHERE id_driver=$id_driver";
-    $res = mysqli_query($conn, $sql);
-
-    if($res == true){
-        $count = mysqli_num_rows($res);
-        if($count == 1){
-            $row = mysqli_fetch_assoc($res);
-            $name = $row['name'];
-			$team = $row['team'];
-			$nation = $row['nation'];
-			$number = $row['number'];
-?>
-
-<div class="card content shadow" style="width: 25rem; height:fit-content;">
+    <!-- <?php 
+        //$login = $_SESSION['login'];
+    ?> -->
+<div class="card content shadow" style="width: 25rem; height:fit-content;"> 
     <div class="card-body">
-        <h5 class="card-title text-center">Update Data</h5>
+        <h5 class="card-title text-center">Tambah Data</h5>
         <form class="row g-3" action="" method="POST">
         <div class="col-md-12">
             <label for="name" class="form-label">Nama</label>
-            <input type="text" name="name" class="form-control" id="name" value="<?php echo $name;?>">
+            <input type="text" name="name" class="form-control" id="name">
         </div>
         <div class="col-md-12 mt-2">
             <label for="team" class="form-label">Tim</label>
-            <input type="text" name="team" class="form-control" id="team" value="<?php echo $team;?>">
+            <input type="text" name="team" class="form-control" id="team">
         </div>
         <div class="col-12 mt-2">
             <label for="number" class="form-label">Nomor Balap</label>
-            <input type="text" class="form-control" name="number" id="number" value="<?php echo $number;?>">
+            <input type="text" class="form-control" name="number" id="number">
         </div>
         <div class="col-12 mt-2">
             <label for="nation" class="form-label">Kebangsaan</label>
-            <input type="text" class="form-control" id="nation" name="nation" value="<?php echo $nation;?>">
+            <input type="text" class="form-control" id="nation" name="nation">
         </div>
         <div class="col-12 mt-3">
-            <input type="submit" name="submit" class="btn btn-primary" value="Update Driver">
-            <a href="../index.php" type="submit" name="submit" class="btn btn-warning" value="Update Driver">Kembali<a>
+            <input type="submit" name="submit" class="btn btn-primary" value="Add Driver">
+                        <a href="../index.php" type="submit" name="submit" class="btn btn-warning" value="Update Driver">Kembali<a>
         </div>
         </form>
     </div>
 </div>
-<?php 
-        }
-    } else {
-        header ('location:'.SITEURL.'index.php');
-    }             
-?>
+
 </body>
 </html>
 
@@ -89,21 +71,39 @@
         $number = $_POST['number'];
         $nation = $_POST['nation'];
 
-        $sql = "UPDATE driver SET
+        $sql = "INSERT INTO driver SET
             name = '$name',
             team = '$team',
             number = '$number',
-            nation = '$nation'
-            WHERE id_driver = '$id_driver';
+            nation = '$nation';
         ";
         $res = mysqli_query($conn, $sql);
 
         if($res == true){
-            $_SESSION ['update'] = "<div class = 'alert alert-success' role='alert'>Driver successfully update</div>";
+            $_SESSION['login'] = "";
+            $_SESSION['add'] = "
+                <script>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Tambah Data Berhasil',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                </script>
+            ";
             header ('location:'.SITEURL.'index.php');
         }else{
-            $_SESSION ['update'] = "<div class = 'alert alert-danger' role='alert'>Driver failed to update</div>";
-            header ('location:'.SITEURL.'action/edit.php?id_driver='.$id_driver);
+            $_SESSION['login'] = "";
+            $_SESSION ['add'] = "
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Tambah Data Gagal',
+                    text: 'Gagal Menambahkan Data',
+                  })
+                </script>
+            </div>";
+            header('location:'.SITEURL.'action/add.php');
         }
     }
 ?>

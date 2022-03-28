@@ -5,7 +5,7 @@
         if(isset($_SESSION['visitor']) || isset($_SESSION['visit'])){
             $username = $_SESSION['visit'];
         }
-    
+        unset($_SESSION['login']);
         $turn = "UPDATE user SET status = false WHERE username = '$username'";
         $periksa = mysqli_query($conn, $turn);
         if($periksa == true){

@@ -51,23 +51,22 @@
         <form class="row g-3" action="" method="POST">
         <div class="col-md-12">
             <label for="name" class="form-label">Nama</label>
-            <input type="text" name="name" class="form-control" id="name" value="<?php echo $name;?>">
+            <input type="text" name="name" class="form-control" id="name" value="<?php echo $name;?>" readonly>
         </div>
         <div class="col-md-12 mt-2">
             <label for="team" class="form-label">Tim</label>
-            <input type="text" name="team" class="form-control" id="team" value="<?php echo $team;?>">
+            <input type="text" name="team" class="form-control" id="team" value="<?php echo $team;?>" readonly>
         </div>
         <div class="col-12 mt-2">
             <label for="number" class="form-label">Nomor Balap</label>
-            <input type="text" class="form-control" name="number" id="number" value="<?php echo $number;?>">
+            <input type="text" class="form-control" name="number" id="number" value="<?php echo $number;?>" readonly>
         </div>
         <div class="col-12 mt-2">
             <label for="nation" class="form-label">Kebangsaan</label>
-            <input type="text" class="form-control" id="nation" name="nation" value="<?php echo $nation;?>">
+            <input type="text" class="form-control" id="nation" name="nation" value="<?php echo $nation;?>" readonly>
         </div>
         <div class="col-12 mt-3">
-            <input type="submit" name="submit" class="btn btn-primary" value="Update Driver">
-            <a href="../index.php" type="submit" name="submit" class="btn btn-warning" value="Update Driver">Kembali<a>
+            <a href="../index.php" type="submit" name="submit" class="btn btn-primary" value="Update Driver">Kembali<a>
         </div>
         </form>
     </div>
@@ -80,30 +79,3 @@
 ?>
 </body>
 </html>
-
-<?php
-    if(isset($_POST['submit'])){
-        //$id_driver = $_POST['id_driver'];
-        $name = $_POST['name'];
-        $team = $_POST['team'];
-        $number = $_POST['number'];
-        $nation = $_POST['nation'];
-
-        $sql = "UPDATE driver SET
-            name = '$name',
-            team = '$team',
-            number = '$number',
-            nation = '$nation'
-            WHERE id_driver = '$id_driver';
-        ";
-        $res = mysqli_query($conn, $sql);
-
-        if($res == true){
-            $_SESSION ['update'] = "<div class = 'alert alert-success' role='alert'>Driver successfully update</div>";
-            header ('location:'.SITEURL.'index.php');
-        }else{
-            $_SESSION ['update'] = "<div class = 'alert alert-danger' role='alert'>Driver failed to update</div>";
-            header ('location:'.SITEURL.'action/edit.php?id_driver='.$id_driver);
-        }
-    }
-?>

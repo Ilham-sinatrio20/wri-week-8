@@ -112,9 +112,14 @@
                         timer: 1500
                     })
                 </script>";
+                $sqlite = "SELECT * FROM user WHERE username='$username'";
+                $res4 = mysqli_query($conn, $sqlite);
+                $find = mysqli_fetch_assoc($res4);
+
+                $id = $find['id'];
+                $username = $find['username'];
                 $_SESSION['visitor'] =  $id;
                 $_SESSION['visit'] = $username;
-                $_SESSION['nama'] = $name;
                 header('location:'.SITEURL.'index.php');
         } else {
                 $_SESSION['login'] = "

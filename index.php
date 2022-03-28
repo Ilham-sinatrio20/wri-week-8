@@ -1,7 +1,5 @@
 <?php 
-    include('config/connect.php');
-    include('frame/navbar.php');
-	include('config/login-check.php');
+	include('frame/navbar.php');
 
 	if(isset($_SESSION['visitor'])){
         $id = $_SESSION['visitor'];   
@@ -9,14 +7,16 @@
 
     if(isset($_SESSION['visit'])){
         $username = $_SESSION['visit'];
-    }
+    }  
 
-	if(isset($_SESSION['nama'])){
-        $name = $_SESSION['nama'];
-    }
+	$sql = "SELECT * FROM user WHERE id = '$id'";
+    $res = mysqli_query($conn, $sql);
+	$user = mysqli_fetch_assoc($res);
+	$name = $user['name'];
+	$role = $user['role'];    
 ?>
 	<nav class="navbar navbar-light bg-dark" style="margin-left: 1%; margin-right: 1%;">
-        <a class="navbar-brand text-light">Selamat Datang <?php echo $name ;?></a>
+        <a class="navbar-brand text-light">Selamat Datang <?php echo  $name;?></a>
         <form class="form-inline d-flex justify-content-between">
             <a href="config/logout.php" class="btn btn-outline-danger my-2 my-sm-0 mx-1" type="submit">Logout</a>
         </form>
@@ -31,7 +31,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="text-right mb-4" style="margin-right: 1%;">
-                <a class="btn btn-success" href="{{ route('mahasiswas.create') }}">
+                <a class="btn btn-success" href="action/add.php">
                     Tambah Pembalap
                 </a>
             </div>
@@ -43,8 +43,8 @@
                     unset($_SESSION['login']);
                 }
 				if(isset($_SESSION['add'])) {
-					echo $_SESSION['add']; //Display session message
-					unset($_SESSION['add']); //Removing session message
+					echo $_SESSION['add'];
+					unset($_SESSION['add']); 
 				}
 				if(isset($_SESSION['delete']))
 				{
@@ -95,7 +95,7 @@
 							$team = $row['team'];
 							$nation = $row['nation'];
 							$number = $row['number'];
-							?>
+			?>
 
 								<tr>
 									<td class="text-center"><?php echo $sn++;?></td>
@@ -103,14 +103,22 @@
 									<td><?php echo $team;?></td>
 									<td><?php echo $nation;?></td>
 									<td class="text-center"><?php echo $number;?></td>
+							<?php 
+								if($role=="Admin"){
+									$_SESSION['login'] = "";
+							?>
 									<td class="text-center">
                                         <a class="btn btn-primary" href="<?php echo SITEURL;?>action/edit.php?id_driver=<?php echo $id_driver;?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                        <a class="btn btn-warning" href="<?php echo SITEURL;?>?id_driver=<?php echo $id_driver;?>"><i class="fa fa-info" aria-hidden="true"></i></a>
+                                        <a class="btn btn-warning" href="<?php echo SITEURL;?>action/show.php?id_driver=<?php echo $id_driver;?>"><i class="fa fa-info" aria-hidden="true"></i></a>
                                         <a class="btn btn-danger" href="<?php echo SITEURL;?>action/delete.php?id_driver=<?php echo $id_driver;?>"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                     </td>
 								</tr>
-
-							<?php
+							<?php 
+								} else if($role=="User") {
+							?>
+									<td class="text-center">NULL</td>
+							<?php 
+								}
 						}
 					}
 				?>

@@ -118,8 +118,8 @@
 
                 $id = $find['id'];
                 $username = $find['username'];
-                $_SESSION['visitor'] =  $id;
-                $_SESSION['visit'] = $username;
+                $_SESSION['user_id'] =  $id;
+                $_SESSION['username'] = $username;
                 header('location:'.SITEURL.'index.php');
         } else {
                 $_SESSION['login'] = "

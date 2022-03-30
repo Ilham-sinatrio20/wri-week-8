@@ -1,5 +1,6 @@
 <?php
     include ('../config/connect.php');
+    include('../config/admin-check.php');
     $id_driver = $_GET ['id_driver'];
 
     $sql = "DELETE FROM driver WHERE id_driver = $id_driver";

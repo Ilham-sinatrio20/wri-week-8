@@ -1,5 +1,6 @@
 <?php 
     include('navbar-login.php');
+    include('../config/admin-check.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,6 +65,7 @@
 </html>
 
 <?php
+
     if(isset($_POST['submit'])){
         //$id_driver = $_POST['id_driver'];
         $name = $_POST['name'];

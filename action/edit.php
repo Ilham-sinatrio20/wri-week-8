@@ -1,5 +1,6 @@
 <?php 
     include('navbar-login.php');
+    include('../config/admin-check.php');
     $login = $_SESSION['login']
 ?>
 <!DOCTYPE html>

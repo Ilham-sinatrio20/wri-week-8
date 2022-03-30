@@ -1,6 +1,6 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <?php 
-    if(!isset($_COOKIE['user_id'])){
+    if(!isset($_COOKIE['user_id']) && !isset($_COOKIE['role'])){
         $_SESSION['check-login'] = 
         "<script>
             Swal.fire({

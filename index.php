@@ -1,5 +1,6 @@
 <?php 
 	include('frame/navbar.php');
+	include('cookie.php');
 
 	if(isset($_SESSION['visitor'])){
         $id = $_SESSION['visitor'];   
@@ -16,7 +17,7 @@
 	$role = $user['role'];    
 ?>
 	<nav class="navbar navbar-light bg-dark" style="margin-left: 1%; margin-right: 1%;">
-        <a class="navbar-brand text-light">Selamat Datang <?php echo  $name;?></a>
+        <a class="navbar-brand text-light">Selamat Datang <?php echo $name;?></a>
         <form class="form-inline d-flex justify-content-between">
             <a href="config/logout.php" class="btn btn-outline-danger my-2 my-sm-0 mx-1" type="submit">Logout</a>
         </form>

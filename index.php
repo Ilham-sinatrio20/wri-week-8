@@ -1,6 +1,6 @@
 <?php
 include('frame/navbar.php');
-include('config/cookie.php');
+// include('config/cookie.php');
 
 // if(isset($_SESSION['user_id'])){
 //     $id = $_SESSION['user_id'];   
@@ -17,7 +17,7 @@ include('config/cookie.php');
 // $role = $user['role'];
 ?>
 <nav class="navbar navbar-light bg-dark" style="margin-left: 1%; margin-right: 1%;">
-	<a class="navbar-brand text-light">Selamat Datang <?php echo $_name; ?></a>
+	<a class="navbar-brand text-light">Selamat Datang <?php echo $_COOKIE['name']; ?></a>
 	<form class="form-inline d-flex justify-content-between">
 		<a href="logout.php" class="btn btn-outline-danger my-2 my-sm-0 mx-1" type="submit">Logout</a>
 	</form>
@@ -104,7 +104,7 @@ include('config/cookie.php');
 							<td><?php echo $nation; ?></td>
 							<td class="text-center"><?php echo $number; ?></td>
 							<?php
-							if ($role == "Admin") {
+							if ($_COOKIE['role'] == "Admin") {
 								$_SESSION['login'] = "";
 							?>
 								<td class="text-center">
@@ -114,7 +114,7 @@ include('config/cookie.php');
 								</td>
 						</tr>
 					<?php
-							} else if ($role == "User") {
+							} else if ($_COOKIE['role'] == "User") {
 					?>
 						<td class="text-center">NULL</td>
 			<?php
